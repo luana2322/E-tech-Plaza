@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment::head"></head>
+
+<body>
+
+
+    <!-- Start Header Area -->
+	<header th:replace="fragment::header1"></header>
+
+	<!-- End Header Area -->
+
+    <!-- Start Banner Area -->
+    <section th:replace="fragment::banner"></section>
+    <!-- End Banner Area -->
+	<!-- End Banner Area -->
+
+	<!--================Order Details Area =================-->
+	<section class="order_details section_gap">
+		<div class="container" th:each="order:${listpending}">
+			<h3 class="title_confirmation">Thank you. Your order is pending.</h3>
+			<div class="row order_d_inner">
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Order Info</h4>
+						<ul class="list">
+							<li><a href="#"><span>Order number</span> : <span th:text="${order.getOrder_id()}"></span> </a></li>
+							<li><a href="#"><span>Date</span>: <span th:text="${order.getOrder_date()}"></span> </a></li>
+							<li><a href="#"><span>Total</span> : <span th:text="${order.getTotal_amount()}"></span></a></li>
+							<li><a href="#"><span>Payment method</span> : <span >PayMent Method</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Billing Address</h4>
+						<ul class="list">
+							<li><a href="#"><span>First-Name</span> : <span th:text="${order.getFirst_name()}"></a></li>
+							<li><a href="#"><span>Last-Name</span> : <span th:text="${order.getLast_name()}"></a></li>
+							<li><a href="#"><span>Email</span> : <span th:text="${order.getEmail()}"></a></li>
+							<li><a href="#"><span>Phone </span> : <span th:text="${order.getPhone()}"></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Shipping Address</h4>
+						<ul class="list">
+							<li><a href="#"><span>Address</span> : <span th:text="${order.getAddress_1()}"></a></li>
+							<li><a href="#"><span>City</span> : <span th:text="${order.getCity().getCity_name()}"></a></li>
+							<li><a href="#"><span>Country</span> : <span th:text="${order.getCity().getCountry().getCountry_name()}"></a></li>
+							<li><a href="#"><span>Postcode</span> : <span th:text="${order.getZipcode()}"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="order_details_table">
+				<h2>Order Details</h2>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Product</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="pro:${order.getList_order_detail()}" >
+								<td>
+									<p th:text="${pro.getProduct().getProduct_name()}" ></p>
+								</td>
+								<td>
+								<h6 th:text="'x'+${pro.getQuantity()}"></h6>
+								</td>
+								<td>
+									<p th:text="${pro.getTotal_amount()}" ></p>
+								</td>
+							</tr>
+						
+							
+							<tr>
+								<td>
+									<h4>Subtotal</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p th:text="'$'+${order.getTotal_amount()}" ></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h4>Shipping</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p>Flat rate: $0.00</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h4>Total</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p th:text="'$'+${order.getTotal_amount()}"></p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<a th:href="@{cancelorder(order_id=${order.getOrder_id()})}" class="genric-btn danger radius float-right">Cancel Order</a>
+				</div>
+			</div>
+			<br><br><br>
+		</div>
+	</section>
+	<!--================End Order Details Area =================-->
+
+	    <!-- start footer Area -->
+    <footer th:replace="fragment::footer"></footer>
+    <!-- End footer Area -->
+
+  <div th:replace="fragment::script"></div>
+</body>
+
+</html>

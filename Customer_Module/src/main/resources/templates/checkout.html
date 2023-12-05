@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment::head"></head>
+
+<style>
+#citySelect {
+    display: block !important;
+	width:100%;
+}	
+.billing_details .contact_form .form-group .country_select:nth-child(2) {
+ 
+}
+div.nice-select.country_select:nth-child(2){
+		
+}
+</style>
+
+<body>
+
+  
+    <!-- Start Header Area -->
+	<header th:replace="fragment::header1"></header>
+
+	<!-- End Header Area -->
+
+    <!-- Start Banner Area -->
+    <section th:replace="fragment::banner"></section>
+    <!-- End Banner Area -->
+    <!-- End Banner Area -->
+
+    <!--================Checkout Area =================-->
+   <section class="cart_area" th:if="${totalItem}==0" >
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+					<div >
+						<h3 class="text-heading text-center ">No Product Here</h3>
+							
+					<a th:href="@{/index}" class="genric-btn success "><span class="lnr lnr-arrow-left"></span>Back To Shop</a>
+					</div>
+					
+	  </section>
+   
+    <section class="checkout_area section_gap"  th:if="${totalItem}!=0" >
+        <div class="container">
+          
+            <div class="billing_details">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3>Billing Details</h3>
+                        <form id="speccialform" class="row contact_form" th:action="@{/order}" method="post" novalidate="novalidate" th:object="${orderDto}">
+                          
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="first" name="first_name" required>
+                                <span class="placeholder" data-placeholder="First name"></span>
+                            </div>
+                          
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="last" name="last_name" required>
+                                <span class="placeholder" data-placeholder="Last name"></span>
+                            </div>
+                          
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="company" name="company_name" placeholder="Company name" required>
+                            </div>
+                          
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="number" name="phone" required>
+                                <span class="placeholder" data-placeholder="Phone number"></span>
+                            </div>
+                          
+                            <div class="col-md-6 form-group p_star">
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <span class="placeholder" data-placeholder="Email Address"></span>
+                            </div>
+                          
+                            <div class="col-md-12 form-group p_star">
+                                <select id="country_select1" class="country_select" onchange="loadCities()">
+                                <option value="0">Vietnam</option>
+								<option value="1">Brunei</option>
+								<option value="2">Cambodia</option>
+								<option value="3">Timor-Leste</option>
+								<option value="4">Indonesia</option>
+								<option value="5">Laos</option>
+								<option value="6">Malaysia</option>
+								<option value="7">Myanmar</option>
+								<option value="8">Philippines</option>
+								<option value="9">Singapore</option>
+								<option value="10">Thailand</option>
+									</select>
+                            </div>
+                          
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="add1" name="address_1" required>
+                                <span class="placeholder" data-placeholder="Address line 01"></span>
+                            </div>
+                          
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="add2" name="address_2" required>
+                                <span class="placeholder" data-placeholder="Address line 02"></span>
+                            </div>
+                           <!-- <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="city" name="city">
+                                <span class="placeholder" data-placeholder="Town/City"></span>
+                            </div>-->
+                            <div class="col-md-12 form-group p_star">
+                                <select id="citySelect" class="country_select" name="city_id" >
+                                    <option value="">Chọn thành phố</option>
+                                </select>
+                            </div>
+                            
+                            
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="zip" name="zipcode" placeholder="Postcode/ZIP" required>
+                            </div>
+                         <!--   <div class="col-md-12 form-group">
+                                <div class="creat_account">
+                                    <input type="checkbox" id="f-option2" name="selector">
+                                    <label for="f-option2">Create an account?</label>
+                                </div>
+                            </div>-->
+                            <div class="col-md-12 form-group">
+                               <!-- <div class="creat_account">
+                                   <h3>Shipping Details</h3>
+                                    <input type="checkbox" id="f-option3" name="selector">
+                                    <label for="f-option3">Ship to a different address?</label>
+                                </div>-->
+                                <textarea class="form-control" name="order_note" id="message" rows="1" placeholder="Order Notes" required></textarea>
+                            </div>
+                            <button type="submit" id="form1" style="display: none;" >aaa</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="order_box">
+                            <h2>Your Order</h2>
+                            <ul class="list">
+                                <li><a href="#">Product <span>Total</span></a></li>
+                                <li th:each="cartItem:${listcartItem}">
+									<a href="#">
+										<span class="first" th:text="${cartItem.getProduct().getProduct_name()}" ></span>
+										<span class="last" th:text="'$'+${cartItem.getTotal_price()}" ></span>
+										<span class="middle" th:text="'x'+${cartItem.getQuantity()}" ></span> 
+										</a>
+										</li>
+                            </ul>
+                            <ul class="list list_2">
+                                <li><a href="#">Subtotal <span th:text="'$'+${cart.getTotal_amount()}" ></span></a></li>
+                                <li>
+									 <div class="cupon_area">
+                <input type="text" placeholder="Enter coupon code">
+                <a class="tp_btn" href="#">Apply Coupon</a>
+            </div>
+								</li>
+                                <li><a href="#">Shipping <span>Flat rate: $2.00</span></a></li>
+                                <li><a href="#">Total <span th:text="'$'+${cart.getTotal_amount()+2}" ></span></a></li>
+                            </ul>
+                            <div class="payment_item">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option5" name="selector" checked>
+                                    <label for="f-option5">Check payments</label>
+                                    <div class="check"></div>
+                                </div>
+                                <p>Please send a check to Store Name, Store Street, Store Town, Store State / County,
+                                    Store Postcode.</p>
+                            </div>
+                            <div class="payment_item active">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option6" name="selector">
+                                    <label for="f-option6">Paypal </label>
+                                    <img src="img/product/card.jpg" alt="">
+                                    <div class="check"></div>
+                                </div>
+                                <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
+                                    account.</p>
+                            </div>
+                            <div class="creat_account">
+                                <input type="checkbox" id="f-option4" name="selector" checked>
+                                <label for="f-option4">I’ve read and accept the </label>
+                                <a th:href="@{/termofservice}">terms & conditions*</a>
+                            </div>
+                            <div  class="primary-btn"  onclick="submitForm()">Proceed to Paypal</div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Checkout Area =================-->
+ <button id="buttonmodal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#success" style="display: none;" >
+aaaa</button>
+
+	<!--================Contact Success and Error message Area =================-->
+	<div id="success" class="modal modal-message fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<i class="fa fa-close"></i>
+					</button>
+					<h2>Thank you for your order. </h2>
+					<p>Your order is being processed and you will be notified of the result shortly.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+     <!-- start footer Area -->
+    <footer th:replace="fragment::footer"></footer>
+    <!-- End footer Area -->
+
+<script>
+	
+
+	  var a=document.getElementById("citySelect");
+	 a.addEventListener("change",loadCities());	
+
+    function loadCities() {
+			
+  var countrySelect = document.getElementById("country_select1");
+  var citySelect = document.getElementById("citySelect");
+  var selectedCountry = countrySelect.value;
+  console.log(selectedCountry);
+  // Xóa danh sách thành phố hiện tại
+  citySelect.innerHTML = "";
+  
+  // Kiểm tra xem đã chọn quốc gia chưa
+  if (selectedCountry !== "") {
+    // Tải dữ liệu JSON từ tệp
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        var cities = JSON.parse(xhr.responseText)[selectedCountry];
+        
+        // Tạo các phần tử option cho danh sách thành phố
+        for (var i = 0; i < cities.length; i++) {
+          var option = document.createElement("option");
+          option.value = i;
+          option.textContent = cities[i];
+          citySelect.appendChild(option);
+        }
+      }
+    };
+    
+    xhr.open("GET", "json/data.json", true); // Thay thế "data.json" bằng đường dẫn tới tệp JSON của bạn
+    xhr.send();
+  }
+  
+}
+
+	var elements = document.getElementsByClassName('country_select');
+if (elements.length >= 0) {
+	console.log(elements.length);
+  elements[1].style.display = 'none';
+}
+
+
+function submitForm() {
+	function alertFunc() {
+  document.getElementById("speccialform").submit();
+}
+  var newInputValue0 = document.getElementsByClassName("form-control");
+var num=0;
+for(var i=1;i<newInputValue0.length-1;i++){
+	  if (newInputValue0[i].value == "") {
+		  num++;
+		  console.log("inputValue"+i);
+		  }
+}
+
+    // Nếu giá trị của input mới không rỗng
+    // Có thể tiếp tục submit
+if(num==0){
+	document.getElementById("buttonmodal").click();
+  	let timeout;
+  timeout = setTimeout(alertFunc, 1000);
+  } else {
+    // Nếu giá trị của input mới rỗng
+    // Hiển thị thông báo hoặc thực hiện hành động khác
+    alert("Please enter a value for the new input.");
+  }
+	
+}
+
+</script>
+
+  <div th:replace="fragment::script"></div>
+</body>
+
+</html>

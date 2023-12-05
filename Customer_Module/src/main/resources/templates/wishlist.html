@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment::head"></head>
+
+<body>
+
+ 
+    <!-- Start Header Area -->
+	<header th:replace="fragment::header1"></header>
+
+	<!-- End Header Area -->
+
+    <!-- Start Banner Area -->
+    <section th:replace="fragment::banner"></section>
+    <!-- End Banner Area -->
+    <!-- End Banner Area -->
+
+    <!--================Cart Area =================-->
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">CPU</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="pro:${wishlist}" class="prd-bottom">
+                                <td >
+                                    <div class="media">
+                                        <div class="d-flex">
+											<a th:href="@{/single-product(product_id=${pro.product_id})}">  <img  th:src="@{${pro.getList_product_image().get(0).getProduct_image_path()}}" style="width: 151px;height: 101px;" alt="">
+                                        </a>
+                                          </div>
+                                        <div class="media-body">
+                                            <p th:text="${pro.product_name}" ></p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5 th:text="${pro.cost_price}" ></h5>
+                                </td>
+                                <td>
+                                   
+                                    <h5 th:text="${pro.cpu}"  ></h5>
+                                </td>
+                                <td>
+                                    <a th:href="@{/delete-pro-wishlist(product_id=${pro.product_id})}" class="social-info">
+										<span class="lnr lnr-trash"></span>
+									</a>
+                                </td>
+                            </tr>
+                         
+                       
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+
+      <!-- start footer Area -->
+    <footer th:replace="fragment::footer"></footer>
+    <!-- End footer Area -->
+
+  <div th:replace="fragment::script"></div>
+</body>
+
+</html>

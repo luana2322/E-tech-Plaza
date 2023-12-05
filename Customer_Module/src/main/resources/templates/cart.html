@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment::head"></head>
+
+<body>
+
+ 
+    <!-- Start Header Area -->
+	<header th:replace="fragment::header1"></header>
+
+	<!-- End Header Area -->
+
+    <!-- Start Banner Area -->
+    <section th:replace="fragment::banner"></section>
+    <!-- End Banner Area -->
+    <!-- End Banner Area -->
+
+    <!--================Cart Area =================-->
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+					<div th:if="${totalItem}==0" >
+						<h3 class="text-heading text-center ">No Product Here</h3>
+							
+					<a th:href="@{/index}" class="genric-btn success "><span class="lnr lnr-arrow-left"></span>Back To Shop</a>
+					</div>
+					
+					<div th:if="${totalItem}!=0" >
+                    <table class="table" style="overflow-y: clip;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                                 <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cartItem:${listcartItem}" >
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                           <img  th:src="@{${cartItem.getProduct().getList_product_image().get(0).getProduct_image_path()}}" style="width: 151px;height: 101px;" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p th:text="${cartItem.getProduct().product_name}" ></p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5 th:text="${cartItem.getProduct().getSale_price()}" ></h5>
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                        <input type="text" name="qty" id="sst" maxlength="12" th:value="${cartItem.getQuantity()}" title="Quantity:"
+                                            class="input-text qty">
+                                        <button onclick=""
+                                            class="increase items-count" type="button"> <a th:href="@{/addNumProduct(cartItem_id=${cartItem.cart_item_id})}"> <i class="lnr lnr-chevron-up"></a></i></button>
+                                        <button onclick=""
+                                            class="reduced items-count" type="button"><a th:href="@{/minusNumProduct(cartItem_id=${cartItem.cart_item_id})}"><i class="lnr lnr-chevron-down"></a></i></button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5 th:text="${cartItem.getTotal_price()}"  ></h5>
+                                </td>
+                                   <td>
+                                    <a th:href="@{/delete-cartItem(cartItem_id=${cartItem.cart_item_id})}" class="social-info">
+										<span class="lnr lnr-trash"></span>
+									</a>
+                                </td>
+                            </tr>
+                         
+                            <tr class="bottom_button">
+                                <td>
+                                    <a class="gray_btn" th:href="@{/cart}">Update Cart</a>
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                 <div class="cupon_text d-flex align-items-center">
+                                        <input type="text" placeholder="Coupon Code">
+                                        <a class="primary-btn" href="#">Apply</a>
+                                      </div>
+                                </td>
+                                
+                                
+                                <td> 								
+                                <a th:href="@{/clear-cart}" class="genric-btn danger radius">CLEAR</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <h5>Subtotal</h5>
+                                </td>
+                                <td>
+                                    <h5 th:text="'$'+${cart.getTotal_amount()}"></h5>
+                                </td>
+                            </tr>
+
+                            <tr class="out_button_area">
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <div class="checkout_btn_inner d-flex align-items-center">
+                                        <a class="gray_btn" th:href="@{/index}">Continue Shopping</a>
+                                        <a class="primary-btn" th:href="@{/checkout}">Proceed Checkout</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+
+      <!-- start footer Area -->
+    <footer th:replace="fragment::footer"></footer>
+    <!-- End footer Area -->
+
+  <div th:replace="fragment::script"></div>
+</body>
+
+</html>

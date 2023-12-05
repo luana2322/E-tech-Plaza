@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="script">
+  <!-- base:js -->
+  <script th:src="@{../../vendors/js/vendor.bundle.base.js}"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script th:src="@{../../js/off-canvas.js}"></script>
+  <script th:src="@{../../js/hoverable-collapse.js}"></script>
+  <script th:src="@{../../js/template.js}"></script>
+  <script th:src="@{../../js/settings.js}"></script>
+  <script th:src="@{../../js/todolist.js}"></script>
+  <!-- endinject -->
+</div>
+
+</body>
+</html>

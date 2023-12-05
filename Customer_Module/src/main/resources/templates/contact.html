@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment::head"></head>
+<body>
+
+
+    <!-- Start Header Area -->
+	<header th:replace="fragment::header1"></header>
+
+	<!-- End Header Area -->
+
+    <!-- Start Banner Area -->
+    <section th:replace="fragment::banner"></section>
+    <!-- End Banner Area -->
+	<!-- End Banner Area -->
+
+	<!--================Contact Area =================-->
+	<section class="contact_area section_gap_bottom">
+		<div class="container">
+			<div id="mapBox" class="mapBox" data-lat="15.975282770206437" data-lon="108.25235499526116" data-zoom="13" data-info="PO Box CT16122 Collins Street West, Victoria 8007, Australia."
+			 data-mlat="15.975282770206437" data-mlon="108.25235499526116">
+			  
+			</div>
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="contact_info">
+						<div class="info_item">
+							<i class="lnr lnr-home"></i>
+							<h6>Quận Ngũ Hành Sơn,Đà Nẵng</h6>
+							<p>VKU-Đại Học CNTT-TT Việt Hàn</p>
+						</div>
+						<div class="info_item">
+							<i class="lnr lnr-phone-handset"></i>
+							<h6><a href="#">0387824490</a></h6>
+							<p>Mon to Fri 9am to 6 pm</p>
+						</div>
+						<div class="info_item">
+							<i class="lnr lnr-envelope"></i>
+							<h6><a href="#">luantnb.22it@vku.udn.vn</a></h6>
+							<p>Send us your query anytime!</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9">
+					<form class="row contact_form" th:action="@{/add-contact}" method="post" id="contactForm" novalidate="novalidate" th:object="${newcontact}">
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'">
+							</div>
+							<div class="form-group">
+								<input type="email" class="form-control" id="email" name="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<textarea class="form-control" name="message" id="message" rows="1" placeholder="Enter Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'"></textarea>
+							</div>
+						</div>
+						<div class="col-md-12 text-right">
+							<button  type="submit" value="submit" class="primary-btn" style="display: none;" >Send Message</button>
+						</div>
+					</form>
+					<div class="col-md-12 text-right">
+							<button class="genric-btn primary e-large" onclick="submitForm()" style="font-size: 15px;">SEND MESSAGE</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================Contact Area =================-->
+
+	    <!-- start footer Area -->
+    <footer th:replace="fragment::footer"></footer>
+    <!-- End footer Area -->
+
+ <button id="buttonmodal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#success" style="display: none;" >
+aaaa</button>
+
+	<!--================Contact Success and Error message Area =================-->
+	<div id="success" class="modal modal-message fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<i class="fa fa-close"></i>
+					</button>
+					<h2>Thank you</h2>
+					<p>Your message is successfully sent...</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modals error -->
+
+	<div id="error" class="modal modal-message fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<i class="fa fa-close"></i>
+					</button>
+					<h2>Sorry !</h2>
+					<p> Something went wrong </p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================End Contact Success and Error message Area =================-->
+<script>
+	
+	function alertFunc() {
+  
+  document.getElementById("contactForm").submit();
+}
+	function submitForm() {
+	
+  var newInputValue0 = document.getElementsByClassName("form-control");
+var num=0;
+for(var i=1;i<newInputValue0.length-1;i++){
+	  if (newInputValue0[i].value == "") {
+		  num++;
+		  console.log("inputValue"+i);
+		  }
+}
+
+    // Nếu giá trị của input mới không rỗng
+    // Có thể tiếp tục submit
+if(num==0){
+document.getElementById("buttonmodal").click();
+  	let timeout;
+  timeout = setTimeout(alertFunc, 1000);
+  
+  } else {
+    // Nếu giá trị của input mới rỗng
+    // Hiển thị thông báo hoặc thực hiện hành động khác
+    alert("Please enter a value for the new input.");
+  }
+	
+}
+	
+</script>
+ <div th:replace="fragment::script"></div>
+	
+</body>
+
+</html>
