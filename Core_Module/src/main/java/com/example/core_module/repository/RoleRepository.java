@@ -7,7 +7,11 @@ import org.springframework.stereotype.Repository;
 import com.example.core_module.model.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
-@Query(value="select * from role r "
-		+ "			   where r.role_name='ADMIN'",nativeQuery = true)
-public Role findByRoleAdmin();
+	@Query(value="select * from role r "
+			+ "			   where r.role_name='ADMIN'",nativeQuery = true)
+	public Role findByRoleAdmin();
+	
+	@Query(value="select * from role r "
+			+ "			   where r.role_name='CUSTOMER'",nativeQuery = true)
+	public Role findByRoleCustomer();
 }

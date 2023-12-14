@@ -27,9 +27,8 @@ public class Category {
 	
 	private String category_status;
 	private Date created_At;
-	private Date deleted_At;
+	private Date update_At;
 	
-
 	private boolean is_activated;
 	private boolean is_deleted;
 

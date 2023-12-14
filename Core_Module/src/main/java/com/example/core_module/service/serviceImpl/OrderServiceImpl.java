@@ -109,6 +109,24 @@ private Order_DetailServiceImpl order_DetailServiceImpl;
 		order.setOrder_status(Order_Status.Cancel.toString());
 		return orderRepository.save(order);
 	}
+
+
+
+	@Override
+	public Orders approveOrder(Long order_id) {
+		Orders order=findById(order_id);
+		order.setOrder_status(Order_Status.Approved.toString());
+		return orderRepository.save(order);
+	}
+
+
+
+	@Override
+	public Orders rejectOrder(Long order_id) {
+		Orders order=findById(order_id);
+		order.setOrder_status(Order_Status.Rejected.toString());
+		return orderRepository.save(order);
+	}
 	
 
 }

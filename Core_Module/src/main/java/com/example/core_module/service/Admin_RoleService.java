@@ -5,4 +5,5 @@ import com.example.core_module.model.Admin_Role;
 
 public interface Admin_RoleService {
 Admin_Role save(Admin admin);
+void deleteByAdmin_id(Long admin_id);
 }

@@ -14,5 +14,10 @@ private Product_CategoryRepository product_CategoryRepository;
 	public Product_Category save(Product_Category product_Category) {
 		return product_CategoryRepository.save(product_Category) ; 
 	}
+	@Override
+	public void deleteByProduct_id(Long product_id) {
+		Product_Category product_Category=product_CategoryRepository.findbyProduct_Id(product_id);
+		product_CategoryRepository.delete(product_Category);
+	}
 
 }

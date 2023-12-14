@@ -48,7 +48,7 @@
                 </a>
                   </div>
                   <div class="pr-1 mb-3 mr-2 mb-xl-0">
-                    <button type="button" class="btn btn-sm bg-white btn-icon-text border"><i class="typcn typcn-arrow-forward-outline mr-2"></i>Export</button>
+                    <a th:href="@{/product-excel}" type="button" class="btn btn-sm bg-white btn-icon-text border"><i class="typcn typcn-arrow-forward-outline mr-2"></i>Export</a>
                   </div>
                   <div class="pr-1 mb-3 mb-xl-0">
                     <button type="button" class="btn btn-sm bg-white btn-icon-text border"><i class="typcn typcn-info-large-outline mr-2"></i>info</button>
@@ -62,12 +62,15 @@
             <div class="row" >
 				<div class="col-sm-12">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Type to search..." aria-label="search" aria-describedby="search">
+				  <form class="input-group" th:action="@{/search-product}">
+                <input type="text" class="form-control" name="key" placeholder="Type to search..." aria-label="search" aria-describedby="search">
                 <div class="input-group-append">
+                  <button style="border: none;" type="submit">
                   <a class="input-group-text" th:href="@{/}" id="search" style="background-color: white;">
                     <i class="typcn typcn-zoom-outline mr-2" style="font-size: 20px;"></i>
                   </a>
-               
+                  </button>
+               </form>
               </div>
             </div>
 				</div>
@@ -89,6 +92,9 @@
                           </th>
                           <th>
                            ID
+                          </th>
+                          <th>
+                           Name
                           </th>
                           <th>
                             Quantity
@@ -119,9 +125,12 @@
                        
                         <tr th:each="pro:${listpro}">
                           <td class="py-1">
-                            <img th:src="@{${pro.getList_product_image().get(1).getProduct_image_path()}}" alt="image"/>
+                            <img th:src="@{${pro.getList_product_image().get(0).getProduct_image_path()}}" alt="image"/>
                           </td>
                           <td th:text="${pro.getProduct_id()}" >
+                          </td>
+                           </td>
+                          <td th:text="${pro.getProduct_name()}" >
                           </td>
                          <td th:text="${pro.getCurrent_quantity()}" >
                           </td>
@@ -136,13 +145,13 @@
                           <td th:text="${pro.getRom()}" >
                           </td>
                           <td>
-							  <a th:href="@{/edit-product(product_id=${pro.getProduct_id()})}"><i class="typcn typcn-edit " style="font-size: 25px;" ></i>
+							  <a th:href="@{/getupdate(product_id=${pro.getProduct_id()})}"><i class="typcn typcn-edit " style="font-size: 25px;" ></i>
                            </a>
                              <a th:href="@{/delete-product(product_id=${pro.getProduct_id()})}"><i class="typcn typcn-trash " style="font-size: 25px;" ></i>
                            </a>
-      
+       						
                           </td>
-                        </tr>
+                        </tr> 
                   
                       </tbody>
                     </table>

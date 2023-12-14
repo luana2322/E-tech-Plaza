@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>CelestialUI Admin</title>
+	<!-- base:css -->
+	<link rel="stylesheet" th:href="@{../../vendors/typicons.font/font/typicons.css}">
+	<link rel="stylesheet" th:href="@{../../vendors/css/vendor.bundle.base.css}">
+	<!-- endinject -->
+	<!-- plugin css for this page -->
+	<link rel="stylesheet" th:href="@{../../vendors/select2/select2.min.css}">
+	<link rel="stylesheet" th:href="@{../../vendors/select2-bootstrap-theme/select2-bootstrap.min.css}">
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" th:href="@{../../css/vertical-layout-light/style.css}">
+	<!-- endinject -->
+	<link rel="shortcut icon" th:href="@{../../images/favicon.png}" />
+</head>
+
+<body>
+	<div class="container-scroller">
+		<!-- partial:../../partials/_navbar.html -->
+		<!-- partial:partials/_navbar.html -->
+		<nav th:replace="partials/fragment::navbar"></nav>
+		<!-- partial -->
+		<div class="container-fluid page-body-wrapper">
+			<!-- partial:partials/_settings-panel.html -->
+			<div th:replace="partials/fragment::setting-panel"></div>
+			<!-- partial -->
+			<!-- partial:partials/_sidebar.html -->
+			<nav th:replace="partials/fragment::sidebar"></nav>
+
+			<!-- partial -->
+			<div class="main-panel">
+				<div class="content-wrapper">
+
+					<div class="row">
+						<div class="col-sm-6">
+							<h3 class="mb-0 font-weight-bold">Update Product</h3>
+							<p>Product Management</p>
+						</div>
+
+
+					</div>
+					<br>
+					<div class="row">
+
+
+						<div class="col-12 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title" th:text="'Update Product'+${pro.getProduct_name()}" ></h4>
+									<p class="card-description">
+										Please fill out all required fields.Thank's.
+									</p>
+									<form class="forms-sample" id="my-form" method="post"  th:action="@{/update}" th:object="${productDto}"  enctype="multipart/form-data" >
+ 
+										<div class="form-group">
+											<label for="product_name">Product Name</label>
+											<input  name="product_name" type="text" class="form-control"
+												id="product_name" th:value="${pro.getProduct_name()}">
+										</div>
+
+										<div class="form-group">
+											<label for="product_sku">Product SKU</label>
+											<input name="product_sku" type="text" class="form-control"
+												id="product_sku" th:value="${pro.getProduct_sku()}">
+										</div>
+
+										<div class="form-group">
+											<label for="cost_price">Cost Price</label>
+											<input name="cost_price" type="text" class="form-control"
+												id="cost_price" th:value="${pro.getCost_price()}">
+										</div>
+
+										<div class="form-group">
+											<label for="sale_price">Sale Price</label>
+											<input name="sale_price" type="text" class="form-control"
+												id="sale_price" th:value="${pro.getSale_price()}">
+										</div>
+
+										<div class="form-group">
+											<label for="cpu">CPU</label>
+											<select class="form-control" id="cpu" name="cpu">
+												<option value="Ryzen 9 7950X3D" th:selected="${pro.getCpu()=='Ryzen 9 7950X3D'}">Ryzen 9 7950X3D</option>
+												<option value="Ryzen 7 7800X" th:selected="${pro.getCpu()=='Ryzen 7 7800X'}">Ryzen 7 7800X</option>
+												<option value="Ryzen 5 5600X"  th:selected="${pro.getCpu()=='Ryzen 5 5600X'}">Ryzen 5 5600X</option>
+												<option value="Ryzen 3 3100"  th:selected="${pro.getCpu()=='Ryzen 3 3100'}">Ryzen 3 3100</option>
+												<option value="EPYC 7776"  th:selected="${pro.getCpu()=='EPYC 7776'}">EPYC 7776</option>
+												<option value="EPYC 7542"  th:selected="${pro.getCpu()=='EPYC 7542'}">EPYC 7542</option>
+												<option value="Core i9-13900K" th:selected="${pro.getCpu()=='Core i9-13900K'}">Core i9-13900K</option>
+												<option value="Core i7-13700K"  th:selected="${pro.getCpu()=='Core i7-13700K'}">Core i7-13700K</option>
+												<option value="Core i5-13600K"  th:selected="${pro.getCpu()=='Core i5-13600K'}">Core i5-13600K</option>
+												<option value="Core i3-1312K"  th:selected="${pro.getCpu()=='Core i3-1312K'}">Core i3-1312K</option>
+												<option value="Xeon Platinum 8480"  th:selected="${pro.getCpu()=='Xeon Platinum 8480'}">Xeon Platinum 8480</option>
+												<option value="Xeon Gold 6448"  th:selected="${pro.getCpu()=='Xeon Gold 6448'}">Xeon Gold 6448</option>
+												<option value="Apple M2"  th:selected="${pro.getCpu()=='Apple M2'}">Apple M2</option>
+												<option value="Apple M1 Ultra"  th:selected="${pro.getCpu()=='Apple M1 Ultra'}">Apple M1 Ultra</option>
+												<option value="Qualcomm Snapdragon 8 Gen 2"  th:selected="${pro.getCpu()=='Qualcomm Snapdragon 8 Gen 2'}">Qualcomm Snapdragon 8 Gen 2
+												</option>
+												<option value="MediaTek Dimensity 9200"  th:selected="${pro.getCpu()=='MediaTek Dimensity 9200'}">MediaTek Dimensity 9200</option>
+												<option value="Samsung Exynos 2200"  th:selected="${pro.getCpu()=='Samsung Exynos 2200'}">Samsung Exynos 2200</option>
+
+											</select>
+										</div>
+
+										<div class="form-group">
+											<label for="ram">RAM</label>
+											<select class="form-control" id="ram" name="ram">
+												<option value="4"  th:selected="${pro.getRam()==4}">4</option>
+												<option value="8"  th:selected="${pro.getRam()==8}">8</option>
+												<option value="16"  th:selected="${pro.getRam()==16}">16</option>
+												<option value="32" th:selected="${pro.getRam()==32}">32</option>
+												<option value="64" th:selected="${pro.getRam()==64}">64</option>
+												<option value="128" th:selected="${pro.getRam()==128}">128</option>
+												<option value="256" th:selected="${pro.getRam()==256}">256</option>
+												<option value="512" th:selected="${pro.getRam()==512}">512</option>
+												<option value="1024" th:selected="${pro.getRam()==1024}">1024</option>
+											</select>
+										</div>
+
+										<div class="form-group">
+											<label for="rom">ROM</label>
+											<select class="form-control" id="rom" name="rom">
+												<option value="4" th:selected="${pro.getRom()==4}">4</option>
+												<option value="8" th:selected="${pro.getRom()==8}">8</option>
+												<option value="16" th:selected="${pro.getRom()==16}">16</option>
+												<option value="32" th:selected="${pro.getRom()==32}">32</option>
+												<option value="64" th:selected="${pro.getRom()==64}">64</option>
+												<option value="128" th:selected="${pro.getRom()==128}">128</option>
+												<option value="256" th:selected="${pro.getRom()==256}">256</option>
+												<option value="512" th:selected="${pro.getRom()==512}">512</option>
+												<option value="1024" th:selected="${pro.getRom()==1024}">1024</option>
+											</select>
+										</div>
+
+										<div class="form-group">
+											<label for="cameracameracameracamera">CAMERA</label>
+											<select class="form-control" id="camera" name="camera">
+												<option value="5"  th:selected="${pro.getCamera()==5}">5MP</option>
+												<option value="8" th:selected="${pro.getCamera()==8}">8MP</option>
+												<option value="12" th:selected="${pro.getCamera()==12}">12MP</option>
+												<option value="20" th:selected="${pro.getCamera()==20}">20MP</option>
+												<option value="40" th:selected="${pro.getCamera()==40}">40MP</option>
+												<option value="60" th:selected="${pro.getCamera()==60}">60MP</option>
+												<option value="100" th:selected="${pro.getCamera()==100}">100MP</option>
+												<option value="200" th:selected="${pro.getCamera()==200}">200MP</option>
+											</select>
+										</div>
+
+
+										<div class="form-group">
+											<label for="pin">PIN</label>
+											<select class="form-control" id="pin" name="pin">
+												<option value="500" th:selected="${pro.getPin()==500}">500</option>
+												<option value="1000" th:selected="${pro.getPin()==1000}">1000</option>
+												<option value="2000" th:selected="${pro.getPin()==2000}">2000</option>
+												<option value="3000" th:selected="${pro.getPin()==3000}">3000</option>
+												<option value="4000" th:selected="${pro.getPin()==4000}">4000</option>
+												<option value="5000" th:selected="${pro.getPin()==5000}">5000</option>
+												<option value="6000" th:selected="${pro.getPin()==6000}">6000</option>
+												<option value="7000" th:selected="${pro.getPin()==7000}">7000</option>
+												<option value="8000" th:selected="${pro.getPin()==8000}">8000</option>
+												<option value="9000" th:selected="${pro.getPin()==9000}">9000</option>
+												<option value="10000" th:selected="${pro.getPin()==10000}">10000</option>
+											</select>
+										</div>
+
+										<div class="form-group">
+											<label for="category">CATEGORY</label>
+											<select class="form-control" id="category" name="category">
+												<option th:each="cate:${listcate}" th:value="${cate.getCategory_id()}"
+													th:text="${cate.getCategory_name()}" th:selected="${pro.getList_product_category().get(0).getCategory().getCategory_id()==cate.getCategory_id()}"></option>
+											</select>
+										</div>
+
+
+										<div class="form-group">
+											<label for="weight">Weight</label>
+											<input name="weight" type="text" class="form-control" id="weight"
+												th:value="${pro.getWeight()}">
+										</div>
+
+										<div class="form-group">
+											<label for="width">Width</label>
+											<input name="width" type="text" class="form-control" id="width"
+												th:value="${pro.getWidth()}">
+										</div>
+
+										<div class="form-group">
+											<label for="height">Height</label>
+											<input name="height" type="text" class="form-control" id="height"
+												th:value="${pro.getHeight()}">
+										</div>
+
+										<div class="form-group">
+											<label for="thick">Thick</label>
+											<input name="thick" type="text" class="form-control" id="thick"
+												th:value="${pro.getThick()}">
+										</div>
+
+										<div class="form-group">
+											<label for="current_quantity">Current Quantity</label>
+											<input name="current_quantity" type="text" class="form-control" id="current_quantity"
+												th:value="${pro.getCurrent_quantity()}">
+										</div>
+
+										<div class="form-group">
+											<label for="description">Description</label>
+											<textarea name="description" class="form-control" id="description"
+												th:value="${pro.getDescription()}" rows="4">[[${pro.getDescription()}]]</textarea>
+										</div>
+<!--
+
+										<div class="form-group">
+											<label>File upload 1</label>
+											<input type="file" id="file1" name="file1" class="file-upload-default"
+												accept="image/png, image/jpeg">
+											<div class="input-group col-xs-12">
+												<input type="text" class="form-control file-upload-info" disabled
+													placeholder="Upload Image">
+												<span class="input-group-append">
+													<button class="file-upload-browse btn btn-primary"
+														type="button">Upload</button>
+												</span>
+											</div>
+											
+										
+										</div>	
+										<div class="form-group">
+											<label for="color_id1">Color for image</label>
+											<select class="form-control" id="color_id1" name="color_id1">
+												<option th:each="color:${listcolor}"
+														th:value="${color.getColor_id()}"
+														th:text="${color.getColor_name()}"></option>
+											</select>
+										</div>
+										<hr>
+										
+										<div class="form-group">
+											<label>File upload 2</label>
+											<input type="file" id="file2" name="file2" value="../../../../../image/product/image1.jpg" class="file-upload-default"
+												accept="image/png, image/jpeg" >
+											<div class="input-group col-xs-12">
+												<input type="text" class="form-control file-upload-info" disabled
+													placeholder="Upload Image">
+												<span class="input-group-append">
+													<button class="file-upload-browse btn btn-primary"
+														type="button">Upload</button>
+												</span>
+											</div>
+											
+										
+										</div>	
+										<div class="form-group">
+											<label for="color_id2">Color for image</label>
+											<select class="form-control" id="color_id2" name="color_id2">
+												<option th:each="color:${listcolor}"
+														th:value="${color.getColor_id()}"
+														th:text="${color.getColor_name()}"></option>
+											</select>
+										</div>
+										<hr>
+										
+										<div class="form-group">
+											<label>File upload 3</label>
+											<input type="file" id="file3" name="file3" class="file-upload-default"
+												accept="image/png, image/jpeg">
+											<div class="input-group col-xs-12">
+												<input type="text" class="form-control file-upload-info" disabled
+													placeholder="Upload Image">
+												<span class="input-group-append">
+													<button class="file-upload-browse btn btn-primary"
+														type="button">Upload</button>
+												</span>
+											</div>
+											
+										
+										</div>	
+										<div class="form-group">
+											<label for="color_id3">Color for image</label>
+											<select class="form-control" id="color_id3" name="color_id3">
+												<option th:each="color:${listcolor}"
+														th:value="${color.getColor_id()}"
+														th:text="${color.getColor_name()}"></option>
+											</select>
+										</div>
+										<hr>-->
+										<br><br>
+
+										<button type="submit" class="btn btn-primary mr-2">Update</button>
+										<button class="btn btn-light">Cancel</button>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- content-wrapper ends -->
+				<button id="buttonmodal" type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#success">
+					aaaa</button>
+
+				<!--================Contact Success and Error message Area =================-->
+				<div id="success" class="modal modal-message fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="header">
+
+								<h2 class="text-center text-success">Add success new product </h2>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- partial:../../partials/_footer.html -->
+				<footer class="footer">
+					<div class="d-sm-flex justify-content-center justify-content-sm-between">
+						<span class="text-center text-sm-left d-block d-sm-inline-block">Copyright © <a
+								th:href="@{https://www.bootstrapdash.com/}" target="_blank">bootstrapdash.com</a>
+							2020</span>
+						<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Free <a
+								th:href="@{https://www.bootstrapdash.com/}" target="_blank">Bootstrap dashboard
+							</a>templates from Bootstrapdash.com</span>
+					</div>
+				</footer>
+				<!-- partial -->
+			</div>
+			<!-- main-panel ends -->
+		</div>
+		<!-- page-body-wrapper ends -->
+	</div>
+	<!-- container-scroller -->
+	
+	<script>
+  var form = document.getElementById("my-form");
+  form.method = "post";
+</script>
+	<!-- base:js -->
+	<script th:src="@{../../vendors/js/vendor.bundle.base.js}"></script>
+	<!-- endinject -->
+	<!-- inject:js -->
+	<script th:src="@{../../js/off-canvas.js}"></script>
+	<script th:src="@{../../js/hoverable-collapse.js}"></script>
+	<script th:src="@{../../js/template.js}"></script>
+	<script th:src="@{../../js/settings.js}"></script>
+	<script th:src="@{../../js/todolist.js}"></script>
+	<!-- endinject -->
+	<!-- plugin js for this page -->
+	<script th:src="@{../../vendors/typeahead.js/typeahead.bundle.min.js}"></script>
+	<script th:src="@{../../vendors/select2/select2.min.js}"></script>
+	<!-- End plugin js for this page -->
+	<!-- Custom js for this page-->
+	<script th:src="@{../../js/file-upload.js}"></script>
+	<script th:src="@{../../js/typeahead.js}"></script>
+	<script th:src="@{../../js/select2.js} "></script>
+	<!-- End custom js for this page-->
+</body>
+
+</html>

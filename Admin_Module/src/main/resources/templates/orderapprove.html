@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>CelestialUI Admin</title>
+  <!-- base:css -->
+  <link rel="stylesheet" th:href="@{../../vendors/typicons.font/font/typicons.css}">
+  <link rel="stylesheet" th:href="@{../../vendors/css/vendor.bundle.base.css}">
+  <!-- endinject -->
+  <!-- inject:css -->
+  <link rel="stylesheet" th:href="@{../../css/vertical-layout-light/style.css}">
+  <!-- endinject -->
+  <link rel="shortcut icon" th:href="@{../../images/favicon.png}" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <!-- partial:partials/_navbar.html -->
+      <nav th:replace="partials/fragment::navbar"></nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+       <div th:replace="partials/fragment::setting-panel"></div>
+        <!-- partial -->
+        <!-- partial:partials/_sidebar.html -->
+        <nav th:replace="partials/fragment::sidebar"></nav>	
+      <!-- partial -->
+      
+      
+
+ <div class="main-panel">
+	
+        
+
+        <div class="content-wrapper">
+			
+			<div class="row">
+              
+              <div class="col-sm-12">
+                <div class="d-flex align-items-center justify-content-md-start">
+                  <div class="mb-0 mb-xl-0 pr-1">
+					  <a th:href="@{/list-approve}">
+                      <button type="button" class="btn btn-success">Approved</button> </a>
+                  </div>
+                  <div class="mb-0 mb-xl-0 pr-1">
+					  <a th:href="@{/list-reject}">
+                      <button type="button" class="btn btn-danger">Reject</button> </a>
+                  </div>
+                  <div class="mb-0 mb-xl-0 pr-1">
+					  <a th:href="@{/list-pending}">
+                      <button type="button" class="btn btn-warning">Pending</button> </a>
+                  </div>
+                  <div class="mb-0 mb-xl-0 pr-1">
+					  <a th:href="@{/list-cancel}">
+                      <button type="button" class="btn btn-secondary">Customer Cancel</button> </a>
+                  </div>
+	             
+            </div>
+            <br><br>
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Order</h4>
+                  <p class="card-description">
+                   <code>Order Approved</code>
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Order ID</th>
+                          <th>Full Name</th>
+                          <th>Total</th>
+                          <th>Status</th>
+                          <th>Order Date</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr th:each="order:${listapprove}">
+                          <td th:text="${order.getOrder_id()}"></td>
+                          <td th:text="${order.getLast_name()+order.getFirst_name()}"></td>
+                          <td th:text="${'$'+order.getTotal_amount()}" > </td>
+                          <td><label class="badge badge-success">Approved</label></td>
+                         <th th:text="${order.getOrder_date()}"></th>
+                       
+						  <th>
+							<a th:href="@{/view-order(order_id=${order.getOrder_id()})}" class="btn btn-outline-secondary btn-fw" style="font-weight: 800;">View</button>
+								 </th>
+                        </tr>
+                       
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+     
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+
+
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-center text-sm-left d-block d-sm-inline-block">Copyright © <a th:href="@{https://www.bootstrapdash.com/}" target="_blank">bootstrapdash.com</a> 2020</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Free <a th:href="@{https://www.bootstrapdash.com/}" target="_blank">Bootstrap dashboard </a>templates from Bootstrapdash.com</span>
+            </div>
+          </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- base:js -->
+  <script th:src="@{../../vendors/js/vendor.bundle.base.js}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script th:src="@{../../js/off-canvas.js}"></script>
+  <script th:src="@{../../js/hoverable-collapse.js}"></script>
+  <script th:src="@{../../js/template.js}"></script>
+  <script th:src="@{../../js/settings.js}"></script>
+  <script th:src="@{../../js/todolist.js}"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <!-- End custom js for this page-->
+</body>
+
+</html>

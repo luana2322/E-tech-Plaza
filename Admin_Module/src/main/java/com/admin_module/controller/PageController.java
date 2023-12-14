@@ -31,10 +31,7 @@ public class PageController {
 
    
 
-    @GetMapping("/error-404")
-    public String  error_404(){
-        return "pages/samples/error-404";
-    }
+   
 
     @GetMapping("/error-500")
     public String  error_500(){

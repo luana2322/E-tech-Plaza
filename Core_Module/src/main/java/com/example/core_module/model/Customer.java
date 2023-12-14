@@ -44,6 +44,9 @@ private boolean is_email_verified;
 private String customer_image;
 private String customer_phone;
 
+private boolean is_activated;
+private boolean is_deleted;
+
 @ManyToOne(fetch = FetchType.EAGER)
 @JoinColumn(name="country_id",referencedColumnName = "country_id")
 private Country country;

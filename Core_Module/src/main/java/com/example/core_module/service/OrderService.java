@@ -13,4 +13,6 @@ void deleteById(Long order_id);
 List<Orders> findAll();
 Orders findById(Long order_id);
 Orders cancelOrder(Long order_id);
+Orders approveOrder(Long order_id);
+Orders rejectOrder(Long order_id);
 }

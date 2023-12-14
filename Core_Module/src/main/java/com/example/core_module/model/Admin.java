@@ -46,6 +46,9 @@ private boolean is_email_verified;
 private String verification_code;
 private String image;
 
+private boolean is_activated;
+private boolean is_deleted;
+
 @OneToMany(mappedBy = "admin")
 private List<Admin_Role> list_admin_role;
 

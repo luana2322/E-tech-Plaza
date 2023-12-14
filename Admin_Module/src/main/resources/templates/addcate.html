@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>CelestialUI Admin</title>
+	<!-- base:css -->
+	<link rel="stylesheet" th:href="@{../../vendors/typicons.font/font/typicons.css}">
+	<link rel="stylesheet" th:href="@{../../vendors/css/vendor.bundle.base.css}">
+	<!-- endinject -->
+	<!-- plugin css for this page -->
+	<link rel="stylesheet" th:href="@{../../vendors/select2/select2.min.css}">
+	<link rel="stylesheet" th:href="@{../../vendors/select2-bootstrap-theme/select2-bootstrap.min.css}">
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" th:href="@{../../css/vertical-layout-light/style.css}">
+	<!-- endinject -->
+	<link rel="shortcut icon" th:href="@{../../images/favicon.png}" />
+</head>
+
+<body>
+	<div class="container-scroller">
+		<!-- partial:../../partials/_navbar.html -->
+		<!-- partial:partials/_navbar.html -->
+		<nav th:replace="partials/fragment::navbar"></nav>
+		<!-- partial -->
+		<div class="container-fluid page-body-wrapper">
+			<!-- partial:partials/_settings-panel.html -->
+			<div th:replace="partials/fragment::setting-panel"></div>
+			<!-- partial -->
+			<!-- partial:partials/_sidebar.html -->
+			<nav th:replace="partials/fragment::sidebar"></nav>
+
+			<!-- partial -->
+			<div class="main-panel">
+				<div class="content-wrapper">
+
+					<div class="row">
+						<div class="col-sm-6">
+							<h3 class="mb-0 font-weight-bold">Add New Category</h3>
+							<p>Category Management</p>
+						</div>
+
+
+					</div>
+					<br>
+					<div class="row">
+
+
+						<div class="col-12 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Form Add New Category</h4>
+									<p class="card-description">
+										Please fill out all required fields.Thank's.
+									</p>
+									<form class="forms-sample" id="my-form" method="post"  th:action="@{/upload_cate}" th:object="${cateDto}"  enctype="multipart/form-data" >
+ 
+										<div class="form-group">
+											<label for="product_name">Product Name</label>
+											<input  name="category_name" type="text" class="form-control"
+												id="product_name" placeholder="Category Name">
+										</div>
+
+
+										<div class="form-group">
+											<label for="description">Description</label>
+											<textarea name="description" class="form-control" id="description"
+												rows="4"></textarea>
+										</div>
+
+
+										<div class="form-group">
+											<label>File upload 1</label>
+											<input type="file" id="file" name="file" class="file-upload-default"
+												accept="image/png, image/jpeg">
+											<div class="input-group col-xs-12">
+												<input type="text" class="form-control file-upload-info" disabled
+													placeholder="Upload Image">
+												<span class="input-group-append">
+													<button class="file-upload-browse btn btn-primary"
+														type="button">Upload</button>
+												</span>
+											</div>
+								
+										</div>	
+									
+										<hr>
+										<br><br>
+
+										<button type="submit" class="btn btn-primary mr-2">Submit</button>
+										<button class="btn btn-light">Cancel</button>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- content-wrapper ends -->
+				<button id="buttonmodal" type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#success">
+					aaaa</button>
+
+				<!--================Contact Success and Error message Area =================-->
+				<div id="success" class="modal modal-message fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="header">
+
+								<h2 class="text-center text-success">Add success new product </h2>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- partial:../../partials/_footer.html -->
+				<footer class="footer">
+					<div class="d-sm-flex justify-content-center justify-content-sm-between">
+						<span class="text-center text-sm-left d-block d-sm-inline-block">Copyright © <a
+								th:href="@{https://www.bootstrapdash.com/}" target="_blank">bootstrapdash.com</a>
+							2020</span>
+						<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Free <a
+								th:href="@{https://www.bootstrapdash.com/}" target="_blank">Bootstrap dashboard
+							</a>templates from Bootstrapdash.com</span>
+					</div>
+				</footer>
+				<!-- partial -->
+			</div>
+			<!-- main-panel ends -->
+		</div>
+		<!-- page-body-wrapper ends -->
+	</div>
+	<!-- container-scroller -->
+	
+	<script>
+  var form = document.getElementById("my-form");
+  form.method = "post";
+</script>
+	<!-- base:js -->
+	<script th:src="@{../../vendors/js/vendor.bundle.base.js}"></script>
+	<!-- endinject -->
+	<!-- inject:js -->
+	<script th:src="@{../../js/off-canvas.js}"></script>
+	<script th:src="@{../../js/hoverable-collapse.js}"></script>
+	<script th:src="@{../../js/template.js}"></script>
+	<script th:src="@{../../js/settings.js}"></script>
+	<script th:src="@{../../js/todolist.js}"></script>
+	<!-- endinject -->
+	<!-- plugin js for this page -->
+	<script th:src="@{../../vendors/typeahead.js/typeahead.bundle.min.js}"></script>
+	<script th:src="@{../../vendors/select2/select2.min.js}"></script>
+	<!-- End plugin js for this page -->
+	<!-- Custom js for this page-->
+	<script th:src="@{../../js/file-upload.js}"></script>
+	<script th:src="@{../../js/typeahead.js}"></script>
+	<script th:src="@{../../js/select2.js} "></script>
+	<!-- End custom js for this page-->
+</body>
+
+</html>

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -34,6 +35,9 @@ public class Product {
 	private int current_quantity;
 	private boolean is_activated;
 	private boolean is_deleted;
+	private Date create_At;
+	private Date update_At;
+	private int view;
 	
 	
 	@Column(name="description")

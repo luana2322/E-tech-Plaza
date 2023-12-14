@@ -1,5 +1,7 @@
 package com.admin_module.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,6 +14,7 @@ import com.example.core_module.model.Admin;
 import com.example.core_module.repository.AdminRepository;
 import com.example.core_module.service.serviceImpl.AdminServiceImpl;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -69,7 +72,15 @@ public class LoginController {
     }
 
     @GetMapping("/index")
-    public String index(){
+    public String index(Principal principal,
+    					HttpSession sesstion){
+    	if(principal==null) {
+    		return "redirect:/pages/samples/login";
+    	}
+    	
+    	Admin admin=adminRepository.findByemail(principal.getName()).get();
+    	String name=admin.getFirst_name() +" "+admin.getLast_name();
+    	sesstion.setAttribute("name", name);
         return "index";
     }
 

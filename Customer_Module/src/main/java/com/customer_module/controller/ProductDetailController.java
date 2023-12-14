@@ -62,6 +62,7 @@ private ProductServiceImpl productServiceImpl;
 		
 		modelMap.addAttribute("title","Product Detail");
 		
+		productServiceImpl.increas_view_product(product_id);
 		Product pro=productServiceImpl.findById(product_id);
 		listcate=categoryRepository.findCategoryByProduct(product_id);
 		

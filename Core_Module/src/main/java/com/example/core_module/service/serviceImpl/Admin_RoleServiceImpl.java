@@ -23,6 +23,11 @@ private RoleRepository repository;
 		admin_Role.setRole(role);
 		return admin_RoleRepository.save(admin_Role);
 	}
+	@Override
+	public void deleteByAdmin_id(Long admin_id) {
+		Admin_Role ad=admin_RoleRepository.findByAdmin_id(admin_id);
+		admin_RoleRepository.delete(ad);
+	}
 	
 
 }

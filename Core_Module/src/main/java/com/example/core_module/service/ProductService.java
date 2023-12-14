@@ -13,6 +13,10 @@ List<Product> findAll();
 Product findById(Long id);
 Product deleteById(Long id);
 Page<Product> getProductPagination(Integer pageNumber,Integer pageSize);
-Product save(ProductDto productDto,List<MultipartFile> listfilery_id);
-	
+Product save(ProductDto productDto,List<MultipartFile> listfile);
+Product update(ProductDto productDto,List<MultipartFile> listfile,Long product_id);
+void deleteByCategory_Id(Long category_id);
+void backByCategory_Id(Long category_id);
+
+Product increas_view_product(Long product_id);
 }

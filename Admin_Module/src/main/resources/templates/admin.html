@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>CelestialUI Admin</title>
+  <!-- base:css -->
+  <link rel="stylesheet" th:href="@{../../vendors/typicons.font/font/typicons.css}">
+  <link rel="stylesheet" th:href="@{../../vendors/css/vendor.bundle.base.css}">
+  <!-- endinject -->
+  <!-- inject:css -->
+  <link rel="stylesheet" th:href="@{../../css/vertical-layout-light/style.css}">
+  <!-- endinject -->
+  <link rel="shortcut icon" th:href="@{../../images/favicon.png}" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <!-- partial:partials/_navbar.html -->
+      <nav th:replace="partials/fragment::navbar"></nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+       <div th:replace="partials/fragment::setting-panel"></div>
+        <!-- partial -->
+        <!-- partial:partials/_sidebar.html -->
+        <nav th:replace="partials/fragment::sidebar"></nav>	
+      <!-- partial -->
+      
+      
+
+ <div class="main-panel">
+	
+        
+
+        <div class="content-wrapper">
+			
+			<div class="row">
+              
+              <div class="col-sm-12">
+                <div class="d-flex align-items-center justify-content-md-start">
+                  <div class="mb-0 mb-xl-0 pr-1">
+					  <a th:href="@{/account}">
+                      <button type="button" class="btn btn-success">Customer</button> </a>
+                  </div>
+                  <div class="mb-0 mb-xl-0 pr-1">
+					  <a th:href="@{/list-admin}">
+                      <button type="button" class="btn btn-danger">Admin</button> </a>
+                  </div>
+                <div class="d-flex align-items-center justify-content-md-end">
+                  <div class="mb-0 mb-xl-0 pr-1">
+					  <a th:href="@{/add-account}">
+                      <button type="button" class="btn btn-secondary">Add new account</button> </a>
+                  </div>
+	             
+            </div> 
+             </div>
+            <br><br>
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Account</h4>
+                  <p class="card-description">
+                   <code>Admin Account</code>
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+							<th>ID</th>
+                          <th>Email</th>
+                          <th>Registration Date</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr th:each="admin:${listadmin}">
+                          <td th:text="${admin.getAdmin_id()}"></td>
+                          <td th:text="${admin.getEmail()}"></td>
+                          <td th:text="${admin.getRegistration_date()}"></td>
+                         <th>
+							 <a	th:href="@{/edit-admin(admin_id=${admin.getAdmin_id()})}" class="btn btn-success">Edit</a>
+							  <a th:href="@{/delete-admin(admin_id=${admin.getAdmin_id()})}"  class="btn  btn-danger btn-primary">Delete</a>
+							 <a	th:href="@{/view-account-admin(user_id=${admin.getAdmin_id()})}" class="btn btn-secondary">View</a>
+							 
+						 </th>
+						 
+                       
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+     
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+
+
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-center text-sm-left d-block d-sm-inline-block">Copyright © <a th:href="@{https://www.bootstrapdash.com/}" target="_blank">bootstrapdash.com</a> 2020</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Free <a th:href="@{https://www.bootstrapdash.com/}" target="_blank">Bootstrap dashboard </a>templates from Bootstrapdash.com</span>
+            </div>
+          </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- base:js -->
+  <script th:src="@{../../vendors/js/vendor.bundle.base.js}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script th:src="@{../../js/off-canvas.js}"></script>
+  <script th:src="@{../../js/hoverable-collapse.js}"></script>
+  <script th:src="@{../../js/template.js}"></script>
+  <script th:src="@{../../js/settings.js}"></script>
+  <script th:src="@{../../js/todolist.js}"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <!-- End custom js for this page-->
+</body>
+
+</html>
