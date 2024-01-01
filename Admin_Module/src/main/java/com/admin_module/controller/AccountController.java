@@ -8,17 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.core_module.dto.AccountDto;
+import com.example.core_module.exportExcel.AccountExcelService;
 import com.example.core_module.model.Admin;
 import com.example.core_module.model.Customer;
 import com.example.core_module.service.serviceImpl.AdminServiceImpl;
 import com.example.core_module.service.serviceImpl.CustomerServiceImpl;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -29,7 +32,8 @@ private CustomerServiceImpl customerServiceImpl;
 private AdminServiceImpl adminServiceImpl;
 @Autowired
 private PasswordEncoder passwordEncoder;
-
+@Autowired
+private AccountExcelService accountExcelService;
 
 //start get list
 @RequestMapping(value="/account",method=RequestMethod.GET)
@@ -170,7 +174,7 @@ public String editcustomer(ModelMap modelMap,
 	modelMap.addAttribute("accountDto",new AccountDto());
 	return "updatecustomer";
 }
-
+	
 @RequestMapping(value="/upload_update_customer",method=RequestMethod.POST)
 public String updatecustomer(ModelMap modelMap,
 					  	  Principal principal,
@@ -188,5 +192,25 @@ customerServiceImpl.update(accountDto, cus_id);
 	return "account";
 }
 //end update
+//excel product
+@GetMapping("/account-excel")
+public void generateExcelReport(HttpServletResponse response) throws Exception{
 	
+	response.setContentType("application/octet-stream");
+	
+	String headerKey = "Content-Disposition";
+	String headerValue = "attachment;filename=account.xls";
+
+	response.setHeader(headerKey, headerValue);
+	
+	accountExcelService.generateExcel(response);
+	
+	response.flushBuffer();
+}
+
+@GetMapping("/aaaa")
+public String aaa(ModelMap modelMap) {
+	
+	return "a";
+}
 }

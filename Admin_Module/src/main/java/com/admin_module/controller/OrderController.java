@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.core_module.exportExcel.OrderExcelService;
 import com.example.core_module.model.Order_Detail;
 import com.example.core_module.model.Orders;
 import com.example.core_module.repository.OrderRepository;
@@ -17,6 +19,7 @@ import com.example.core_module.service.OrderService;
 import com.example.core_module.service.serviceImpl.OrderServiceImpl;
 
 import ch.qos.logback.core.model.Model;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -25,6 +28,8 @@ public class OrderController {
 private OrderRepository orderRepository;
 @Autowired
 private OrderService orderService;
+@Autowired
+private OrderExcelService orderExcelService;
 	
 @RequestMapping(value="/list-approve",method=RequestMethod.GET)
 public String order(Principal principal,
@@ -67,7 +72,9 @@ public String pending(Principal principal,
 
 
 	List<Orders> listorder=orderRepository.getListAllPending();
+
 	modelMap.addAttribute("listpending",listorder);
+	session.setAttribute("numpending",listorder.size());
 	return "orderpending";
 }
 
@@ -109,7 +116,7 @@ public String reject(@RequestParam("order_id")Long order_Id,
 		return "redirect:/pages/samples/login";
 	}
 	
-	orderService.approveOrder(order_Id);
+	orderService.rejectOrder(order_Id);
 	
 	List<Orders> listorder=orderRepository.getListAllPending();
 	modelMap.addAttribute("listpending",listorder);
@@ -129,6 +136,22 @@ public String view_order(@RequestParam("order_id")Long order_id,
 	
 	modelMap.addAttribute("order",order);
 	return "view-order";
+}
+
+//excel product
+@GetMapping("/order-excel")
+public void generateExcelReport(HttpServletResponse response) throws Exception{
+	
+	response.setContentType("application/octet-stream");
+	
+	String headerKey = "Content-Disposition";
+	String headerValue = "attachment;filename=order.xls";
+
+	response.setHeader(headerKey, headerValue);
+	
+	orderExcelService.generateExcel(response);
+	
+	response.flushBuffer();
 }
 	
 }

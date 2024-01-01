@@ -32,12 +32,13 @@ public class SecurityConfig {
 	          .usernameParameter("email")
            .passwordParameter("password")
 	          .loginProcessingUrl("/do-login")
-	          .defaultSuccessUrl("/index",true)
+	          .defaultSuccessUrl("/list-pending",true)
 	          .failureUrl("/login?error=true")
 	          .permitAll())
 	          
 	          .logout(logout->logout
 	          .logoutSuccessUrl("/login?logout")
+					  .logoutUrl("/logout")
 	          .invalidateHttpSession(true)
 	          .deleteCookies("JSESSIONID")
 	          .permitAll())

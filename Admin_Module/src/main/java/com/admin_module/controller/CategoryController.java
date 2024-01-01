@@ -18,12 +18,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.core_module.dto.CategoryDto;
 import com.example.core_module.dto.ProductDto;
+import com.example.core_module.exportExcel.CategoryExcelService;
 import com.example.core_module.model.Category;
 import com.example.core_module.model.Product;
 import com.example.core_module.repository.CategoryRepository;
 import com.example.core_module.service.serviceImpl.CategoryServiceImpl;
 
 import ch.qos.logback.core.model.Model;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -32,6 +34,8 @@ public class CategoryController {
 private CategoryServiceImpl categoryServiceImpl;
 @Autowired 
 private CategoryRepository categoryRepository;
+@Autowired
+private CategoryExcelService categoryExcelService;
 	List<Category> listcate=new ArrayList<>();
 	@GetMapping("/category")
 	public String category(ModelMap modelMap,
@@ -128,6 +132,22 @@ private CategoryRepository categoryRepository;
 		modelMap.addAttribute("listcate", listcate);
 		
 		return "category";
+	}
+	
+	//excel product
+	@GetMapping("/category-excel")
+	public void generateExcelReport(HttpServletResponse response) throws Exception{
+		
+		response.setContentType("application/octet-stream");
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment;filename=category.xls";
+
+		response.setHeader(headerKey, headerValue);
+		
+		categoryExcelService.generateExcel(response);
+		
+		response.flushBuffer();
 	}
 	
 }
