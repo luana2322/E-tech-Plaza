@@ -67,6 +67,7 @@ List<Country> listcountry=new ArrayList<>();
 				modelMap.addAttribute("orderDto", new OrderDto());
 				modelMap.addAttribute("totalItem", shopppingCart.getTotal_item());		
 				System.out.println("Exists Product");
+				modelMap.addAttribute("cus", cus);
 			}else {
 				modelMap.addAttribute("totalItem", 0);
 				System.out.println("No Productsss");

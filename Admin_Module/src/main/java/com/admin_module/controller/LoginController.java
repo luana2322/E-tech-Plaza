@@ -1,6 +1,8 @@
 package com.admin_module.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.core_module.dto.AdminDto;
 import com.example.core_module.model.Admin;
+import com.example.core_module.model.Category;
+import com.example.core_module.model.Orders;
+import com.example.core_module.model.Product;
+import com.example.core_module.model.Thongke;
 import com.example.core_module.repository.AdminRepository;
+import com.example.core_module.repository.CategoryRepository;
+import com.example.core_module.repository.OrderRepository;
+import com.example.core_module.repository.ProductRepository;
 import com.example.core_module.service.serviceImpl.AdminServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +32,12 @@ public class LoginController {
 	private AdminServiceImpl adminServiceImpl;
 	@Autowired
 	private AdminRepository adminRepository;
+	@Autowired
+	private OrderRepository orderRepository;
+	@Autowired
+	private ProductRepository productRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
 
     @GetMapping("/login")
     public String login(){
@@ -73,15 +88,50 @@ public class LoginController {
 
     @GetMapping("/index")
     public String index(Principal principal,
-    					HttpSession sesstion){
+    					HttpSession sesstion,
+    					ModelMap map){
     	if(principal==null) {
     		return "redirect:/pages/samples/login";
     	}
+ 	double loiwnhun;
+    	for(int i=1;i<13;i++) {
+    		if(orderRepository.LoiNhuanOfMonth(i).isPresent()) {
+    			System.out.println(i);
+    				
+    		 loiwnhun=orderRepository.LoiNhuanOfMonth(i).get();
+    		 System.out.println(loiwnhun);
+ 			sesstion.setAttribute("thang"+i, loiwnhun);
+    		}else {
+    			sesstion.setAttribute("thang"+i, 0);
+    		}
     	
+    	}
+    	
+    	
+//    		 double loiwnhun;
+//    		 loiwnhun=orderRepository.LoiNhuanOfMonth(11).get();
+// 			sesstion.setAttribute("thang"+11, loiwnhun);
+// 		
+// 			 loiwnhun=orderRepository.LoiNhuanOfMonth(12).get();
+// 			sesstion.setAttribute("thang"+12, loiwnhun);
+// 		
+// 			 loiwnhun=orderRepository.LoiNhuanOfMonth(1).get();
+// 			sesstion.setAttribute("thang"+1, loiwnhun);
+ 		
+ 			List<Category> listcate=new ArrayList<>();
+ 			listcate=categoryRepository.findAll();
+ 		
+ 			sesstion.setAttribute("categorynum", listcate.size());
+        
     	Admin admin=adminRepository.findByemail(principal.getName()).get();
     	String name=admin.getFirst_name() +" "+admin.getLast_name();
     	sesstion.setAttribute("name", name);
-        return "index";
+    	sesstion.setAttribute("tongloinhuan", orderRepository.LoiNhuan());
+    	sesstion.setAttribute("tongloinhuan1", orderRepository.TongLoiNhuan());
+         sesstion.setAttribute("tongsanpham", productRepository.findAll().size());
+        map.addAttribute("listproduct",productRepository.findAll());
+        
+    	return "index";
     }
 
 }

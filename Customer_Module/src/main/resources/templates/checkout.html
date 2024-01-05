@@ -52,7 +52,7 @@ div.nice-select.country_select:nth-child(2){
                         <form id="speccialform" class="row contact_form" th:action="@{/order}" method="post" novalidate="novalidate" th:object="${orderDto}">
                           
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="first" name="first_name" required>
+                                <input type="text" class="form-control" id="first" name="first_name" required >
                                 <span class="placeholder" data-placeholder="First name"></span>
                             </div>
                           
@@ -147,15 +147,15 @@ div.nice-select.country_select:nth-child(2){
                             <ul class="list list_2">
                                 <li><a href="#">Subtotal <span th:text="'$'+${cart.getTotal_amount()}" ></span></a></li>
                                 <li>
-									 <div class="cupon_area">
+									<!-- <div class="cupon_area">
                 <input type="text" placeholder="Enter coupon code">
                 <a class="tp_btn" href="#">Apply Coupon</a>
-            </div>
+            </div>-->
 								</li>
                                 <li><a href="#">Shipping <span>Flat rate: $2.00</span></a></li>
                                 <li><a href="#">Total <span th:text="'$'+${cart.getTotal_amount()+2}" ></span></a></li>
                             </ul>
-                            <div class="payment_item">
+                       <!--     <div class="payment_item">
                                 <div class="radion_btn">
                                     <input type="radio" id="f-option5" name="selector" checked>
                                     <label for="f-option5">Check payments</label>
@@ -163,8 +163,8 @@ div.nice-select.country_select:nth-child(2){
                                 </div>
                                 <p>Please send a check to Store Name, Store Street, Store Town, Store State / County,
                                     Store Postcode.</p>
-                            </div>
-                            <div class="payment_item active">
+                            </div>-->
+                           <!-- <div class="payment_item active">
                                 <div class="radion_btn">
                                     <input type="radio" id="f-option6" name="selector">
                                     <label for="f-option6">Paypal </label>
@@ -173,7 +173,7 @@ div.nice-select.country_select:nth-child(2){
                                 </div>
                                 <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
                                     account.</p>
-                            </div>
+                            </div>-->
                             <div class="creat_account">
                                 <input type="checkbox" id="f-option4" name="selector" checked>
                                 <label for="f-option4">I’ve read and accept the </label>
