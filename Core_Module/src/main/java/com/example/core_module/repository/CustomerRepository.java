@@ -20,4 +20,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
 	@Query(value="select * from customer p"
 			+ "				where p.is_activated=1",nativeQuery = true)
 	public List<Customer> findAll();
+	
+	@Query(value="SELECT * FROM customer u WHERE u.verificationCode = ?1",nativeQuery = true)
+    public Customer findByVerificationCode(String code);
 }

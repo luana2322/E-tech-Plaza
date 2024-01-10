@@ -40,6 +40,7 @@ private String customerpassword;
 private String first_name;
 private String last_name;
 private String registration_date;
+private String verificationCode;
 private boolean is_email_verified;
 private String customer_image;
 private String customer_phone;

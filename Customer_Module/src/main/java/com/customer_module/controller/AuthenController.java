@@ -1,7 +1,12 @@
 package com.customer_module.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 
+import java.io.UnsupportedEncodingException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -46,7 +51,8 @@ public class AuthenController {
 	@PostMapping("/register-new")
 	public String registernew(@Valid CustomerDto customerDto,
 									BindingResult bindingResult,
-									ModelMap modelMap) {
+									ModelMap modelMap,
+							  		HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
 		modelMap.addAttribute("tiltle","Login Page");
 		if(bindingResult.hasErrors()) {
 			System.out.println("eorr bindng");
@@ -72,10 +78,31 @@ public class AuthenController {
 			return "login";
 		}
 		
-		customerServiceImpl.save(customerDto);
+		customerServiceImpl.save(customerDto,getSiteURL(request));
 		return "login";
 	}
+	private String getSiteURL(HttpServletRequest request) {
+		String siteURL = request.getRequestURL().toString();
+		return siteURL.replace(request.getServletPath(), "");
+	}
 	
+
+	  @PostMapping("/process_register")
+	    public String processRegister(CustomerDto customerDto, HttpServletRequest request)
+	            throws UnsupportedEncodingException, MessagingException {
+		  System.out.println("register");
+	        customerServiceImpl.save(customerDto, getSiteURL(request));       
+	        return "register_success";
+	    }
+	  @GetMapping("/verify")
+	  public String verifyUser(@Param("code") String code) {
+	      if (customerServiceImpl.verify(code)) {
+	          return "verify_success";
+	      } else {
+	          return "verify_fail";
+	      }
+	  }
+	   
 	
 	@GetMapping("/aa")
 	public String fwnolmw() {
