@@ -2,6 +2,7 @@ package com.customer_module.controller;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.UnsupportedEncodingException;
 
@@ -45,8 +46,19 @@ public class AuthenController {
 		modelMap.addAttribute("title","Register");
 		modelMap.addAttribute("tiltle","Register");
 		modelMap.addAttribute("newcustomer",new CustomerDto());
-		return "registration";
+		return "sendmail";
 	}
+	
+//	@GetMapping("/register")
+//	public String register(ModelMap modelMap) {
+//		System.out.println("This is login page");
+//
+//		modelMap.addAttribute("title","Register");
+//		modelMap.addAttribute("tiltle","Register");
+//		modelMap.addAttribute("newcustomer",new CustomerDto());
+//		return "registration";
+//	}
+	
 	
 	@PostMapping("/register-new")
 	public String registernew(@Valid CustomerDto customerDto,
@@ -81,19 +93,44 @@ public class AuthenController {
 		customerServiceImpl.save(customerDto,getSiteURL(request));
 		return "login";
 	}
+	
 	private String getSiteURL(HttpServletRequest request) {
 		String siteURL = request.getRequestURL().toString();
 		return siteURL.replace(request.getServletPath(), "");
 	}
 	
 
-	  @PostMapping("/process_register")
-	    public String processRegister(CustomerDto customerDto, HttpServletRequest request)
-	            throws UnsupportedEncodingException, MessagingException {
-		  System.out.println("register");
-	        customerServiceImpl.save(customerDto, getSiteURL(request));       
-	        return "register_success";
-	    }
+	@PostMapping("/process_register")
+    public String processRegister(CustomerDto customerDto, HttpServletRequest request,HttpSession section)
+            throws UnsupportedEncodingException, MessagingException {
+	  System.out.println("register");
+	String email= (String) section.getAttribute("emailregister");
+	section.removeAttribute("emailregister");
+	  customerDto.setCustomeremail(email);
+	  
+	  String code=(String) section.getAttribute("code");
+	  System.out.println("code1"+code);
+	  System.out.println("code2"+customerDto.getCode());
+	  if(code.equals(customerDto.getCode())) {
+		   customerServiceImpl.save(customerDto, getSiteURL(request)); 
+	  }else {
+		  return "wrongcode";
+	  }
+	   
+        return "login";
+    }
+	
+	@PostMapping("/sendemail")
+    public String sendemail(CustomerDto customerDto, HttpServletRequest request,HttpSession section)
+            throws UnsupportedEncodingException, MessagingException {
+	  System.out.println("register");
+	  section.setAttribute("emailregister", customerDto.getCustomeremail());
+	  Customer cus=new Customer();
+	  cus.setCustomeremail(customerDto.getCustomeremail());
+        customerServiceImpl.sendVerificationEmail(cus, getSiteURL(request),section);       
+        return "registration";
+    }
+	
 	  @GetMapping("/verify")
 	  public String verifyUser(@Param("code") String code) {
 	      if (customerServiceImpl.verify(code)) {

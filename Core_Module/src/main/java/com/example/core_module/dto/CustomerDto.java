@@ -16,5 +16,5 @@ public class CustomerDto {
 	private String confirmpassword;
 	private String first_name;
 	private String last_name;
-	private String customer_phone;
+	private String code;
 }

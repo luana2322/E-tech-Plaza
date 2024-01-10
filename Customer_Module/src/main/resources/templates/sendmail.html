@@ -23,29 +23,14 @@
 				
 				<div class="col-lg-6">
 					<div class="login_form_inner">
-						<h3>Register to enter</h3>
-						<form class="row login_form" th:action="@{/process_register}" method="post" th:object="${newcustomer}" id="contactForm" novalidate="novalidate">
-							
-							
+						<h3>Please enter your email.</h3>
+						<form class="row login_form" th:action="@{/sendemail}" method="post" th:object="${newcustomer}" id="contactForm" novalidate="novalidate">
 							<div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="customerpassword" name="customerpassword" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-							</div>
-                            <div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'">
+								<input type="text" class="form-control" id="customeremail" name="customeremail" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
 							</div>
 							
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="code" name="code" placeholder="VerifyCode" onfocus="this.placeholder = ''" onblur="this.placeholder = 'VerifyCode'">
-							</div>
-							
-							<div class="col-md-12 form-group">
-								<div class="creat_account">
-									<input type="checkbox" id="f-option2" name="selector">
-									<label for="f-option2">Keep me logged in</label>
-								</div>
-							</div>
-							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="primary-btn">Register</button>
+								<button type="submit" value="submit" class="primary-btn">Submit</button>
 							
 							</div>
 						</form>

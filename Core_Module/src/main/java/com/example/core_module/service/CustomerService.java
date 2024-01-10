@@ -9,6 +9,7 @@ import com.example.core_module.dto.CustomerDto;
 import com.example.core_module.model.Customer;
 
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpSession;
 
 public interface CustomerService {
 	
@@ -18,7 +19,7 @@ public interface CustomerService {
 	Customer adminsave(AccountDto accountDto);
 	void deleteById(Long customer_id);
 	Customer update(AccountDto accountDto,Long customer_id);
-	 void sendVerificationEmail(Customer accountDto, String siteURL)
+	 void sendVerificationEmail(Customer accountDto, String siteURL,HttpSession section)
 				throws MessagingException, UnsupportedEncodingException ;
 	 public boolean verify(String verificationCode) ;
 }
