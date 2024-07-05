@@ -127,7 +127,7 @@ public class AuthenController {
 	  section.setAttribute("emailregister", customerDto.getCustomeremail());
 	  Customer cus=new Customer();
 	  cus.setCustomeremail(customerDto.getCustomeremail());
-        customerServiceImpl.sendVerificationEmail(cus, getSiteURL(request),section);       
+		customerServiceImpl.sendVerificationEmail(cus, getSiteURL(request),section);
         return "registration";
     }
 	
