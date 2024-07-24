@@ -157,6 +157,7 @@ public class CategoryController {
 		return "category";
 	}
 
+	
 	@GetMapping("/productBycategory_id")
 	public String productBycategory_id(@RequestParam Long category_id,
 													ModelMap modelMap,
